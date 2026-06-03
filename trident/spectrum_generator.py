@@ -371,7 +371,6 @@ class SpectrumGenerator(AbsorptionSpectrum):
         >>> sg.plot_spectrum('spec_raw.png')
         """
         self.observing_redshift = observing_redshift
-        
 
         if isinstance(ray, str):
             ray = load(ray)
@@ -432,6 +431,7 @@ class SpectrumGenerator(AbsorptionSpectrum):
                                                   element='H', ion_state='I')
         if len(H_lines) > 0 and ly_continuum:
             self.add_continuum('Ly C', H_lines[0].field, 912.32336, 1.6e17, 3.0)
+
         AbsorptionSpectrum.make_spectrum(self, ad,
                                          output_file=None,
                                          line_list_file=None,

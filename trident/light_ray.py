@@ -1,4 +1,3 @@
-
 """
 LightRay class and member functions.
 
@@ -51,7 +50,7 @@ class LightRay(CosmologySplice):
     For compound rays, the LightRay stacks together multiple datasets in a time
     series in order to approximate a LightRay's path through a volume
     and redshift interval larger than a single simulation data output.
-    The outcome is thing akin to a synthetic QSO line of sight.
+    The outcome is something akin to a synthetic QSO line of sight.
 
     Once the LightRay object is set up, use LightRay.make_light_ray to
     begin making rays.  Different randomizations can be created with a
@@ -522,10 +521,9 @@ class LightRay(CosmologySplice):
 
         if field_parameters is None:
             field_parameters = {}
-        else:
 
         # Initialize data structures.
-            self._data = {}
+        self._data = {}
         # temperature field is automatically added to fields
         if fields is None: fields = []
         if ('gas', 'temperature') not in fields:

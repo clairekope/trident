@@ -11,7 +11,6 @@ Ion fraction fields using Cloudy data.
 # The full license is in the file LICENSE, distributed with this software.
 #-----------------------------------------------------------------------------
 
-from sympy import abundance
 from yt.fields.field_detector import \
     FieldDetector
 from yt.utilities.linear_interpolators import \
@@ -500,7 +499,7 @@ def add_ion_number_density_field(atom, ion, ds, ftype="gas",
 
     global abundance_store
     if abundance_dict is None:
-        abundance_store = copy.copy(solar_abundance)
+        abundance_store = solar_abundance
     else:
         abundance_store = update_abundances(abundance_dict)
 
@@ -834,7 +833,7 @@ def _ion_number_density(field, data):
           atomic_mass[atom] / mh
 
     if atom == 'H' or atom == 'He':
-        number_density = abundance_store[atom] * data[fraction_field_name]
+        number_density = abundance_store[atom] * data[ftype, fraction_field_name]
     else:
         number_density = data.ds.quan(abundance_store[atom], "1.0/Zsun") * \
           data[ftype, fraction_field_name] * \
@@ -1006,16 +1005,16 @@ def calculate_ion_fraction(ion, density, temperature, redshift, ionization_table
 
     field = "%s_p%d_ion_fraction" % (atom, ion_state-1)
     field += "_%s" % ionization_table.split(os.sep)[-1].split(".h5")[0]
-    if field not in table_store:
+    if field not in ion_table_store:
         ionTable = IonBalanceTable(ionization_table, atom)
-        table_store[field] = {'fraction': copy.deepcopy(ionTable.ion_fraction[ion_state-1]),
+        ion_table_store[field] = {'fraction': copy.deepcopy(ionTable.ion_fraction[ion_state-1]),
                               'parameters': copy.deepcopy(ionTable.parameters)}
         del ionTable
 
-    ion_fraction = table_store[field]['fraction']
-    n_param = table_store[field]['parameters'][0]
-    z_param = table_store[field]['parameters'][1]
-    t_param = table_store[field]['parameters'][2]
+    ion_fraction = ion_table_store[field]['fraction']
+    n_param = ion_table_store[field]['parameters'][0]
+    z_param = ion_table_store[field]['parameters'][1]
+    t_param = ion_table_store[field]['parameters'][2]
 
     # x,y,z coordinates for all ion_fractions from table
     coords = (n_param, z_param, t_param)
@@ -1048,7 +1047,6 @@ def update_abundances(abundance_replacements):
         if key in solar_abundance:
             abundances[key] = val
         else:
-            print(f"PROBLEM KEY: {key}")
             raise RuntimeError(f"Unrecognized element {key} provided to abundance_dict. Only elements up through Zn supported.")
 
     return abundances    
@@ -1066,7 +1064,6 @@ solar_abundance = {
     'Ti': 1.05e-07, 'V' : 1.00e-08, 'Cr': 4.68e-07,
     'Mn': 2.88e-07, 'Fe': 2.82e-05, 'Co': 8.32e-08,
     'Ni': 1.78e-06, 'Cu': 1.62e-08, 'Zn': 3.98e-08}
-
 
 atomic_mass = {
     'H' : 1.00794,   'He': 4.002602,  'Li': 6.941,
