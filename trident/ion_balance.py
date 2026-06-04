@@ -206,8 +206,9 @@ def add_ion_fields(ds, ions, ftype='gas',
 
         Dictionary of elemental abundances normalized to hydrogen. Keys should
         be elemental symbols, e.g., 'He'. By default, Trident assumes the solar
-        abundances of REF. Entries in this dictionary will replace the default
-        solar values. To completely replace the default solar abundances, specify
+        abundances from CLOUDY (Ferland et al. 2017).
+        Entries in this dictionary will replace the default
+        solar values. To completely replace the default solar abundances,
         the dictionary should include all elements up through zinc.
 
     :field_suffix: boolean, optional
@@ -294,7 +295,6 @@ def add_ion_fields(ds, ions, ftype='gas',
 
 def add_ion_fraction_field(atom, ion, ds, ftype="gas",
                            ionization_table=None,
-                           abundance_dict=None,
                            field_suffix=False,
                            sampling_type='local',
                            particle_type=None):
@@ -337,14 +337,6 @@ def add_ion_fraction_field(atom, ion, ds, ftype="gas",
         compute the ion fraction as a function of density, temperature,
         metallicity, and redshift.  By default, it uses the table specified in
         ~/.trident/config
-
-    :abundance_dict: dictionary, optional
-
-        Dictionary of elemental abundances normalized to hydrogen. Keys should
-        be elemental symbols, e.g., 'He'. By default, Trident assumes the solar
-        abundances of REF. Entries in this dictionary will replace the default
-        solar values. To completely replace the default solar abundances, specify
-        the dictionary should include all elements up through zinc.
 
     :field_suffix: boolean, optional
         Determines whether or not to append a suffix to the field name that
@@ -464,8 +456,9 @@ def add_ion_number_density_field(atom, ion, ds, ftype="gas",
 
         Dictionary of elemental abundances normalized to hydrogen. Keys should
         be elemental symbols, e.g., 'He'. By default, Trident assumes the solar
-        abundances of REF. Entries in this dictionary will replace the default
-        solar values. To completely replace the default solar abundances, specify
+        abundances from CLOUDY (Ferland et al. 2017).
+        Entries in this dictionary will replace the default
+        solar values. To completely replace the default solar abundances,
         the dictionary should include all elements up through zinc.
 
     :field_suffix: boolean, optional
@@ -511,7 +504,6 @@ def add_ion_number_density_field(atom, ion, ds, ftype="gas",
         field += "_%s" % ionization_table.split(os.sep)[-1].split(".h5")[0]
 
     add_ion_fraction_field(atom, ion, ds, ftype, ionization_table,
-                           abundance_dict=abundance_dict,
                            field_suffix=field_suffix,
                            sampling_type=sampling_type)
 
@@ -572,8 +564,9 @@ def add_ion_density_field(atom, ion, ds, ftype="gas",
 
         Dictionary of elemental abundances normalized to hydrogen. Keys should
         be elemental symbols, e.g., 'He'. By default, Trident assumes the solar
-        abundances of REF. Entries in this dictionary will replace the default
-        solar values. To completely replace the default solar abundances, specify
+        abundances from CLOUDY (Ferland et al. 2017).
+        Entries in this dictionary will replace the default
+        solar values. To completely replace the default solar abundances,
         the dictionary should include all elements up through zinc.
 
     :field_suffix: boolean, optional
@@ -675,8 +668,9 @@ def add_ion_mass_field(atom, ion, ds, ftype="gas",
 
         Dictionary of elemental abundances normalized to hydrogen. Keys should
         be elemental symbols, e.g., 'He'. By default, Trident assumes the solar
-        abundances of REF. Entries in this dictionary will replace the default
-        solar values. To completely replace the default solar abundances, specify
+        abundances from CLOUDY (Ferland et al. 2017).
+        Entries in this dictionary will replace the default
+        solar values. To completely replace the default solar abundances,
         the dictionary should include all elements up through zinc.
 
     :field_suffix: boolean, optional
