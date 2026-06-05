@@ -385,7 +385,6 @@ def add_ion_fraction_field(atom, ion, ds, ftype="gas",
     if field_suffix:
         field += "_%s" % ionization_table.split(os.sep)[-1].split(".h5")[0]
 
-    global ion_table_store
     if field not in ion_table_store:
         ionTable = IonBalanceTable(ionization_table, atom)
         ion_table_store[field] = {'fraction': copy.deepcopy(ionTable.ion_fraction[ion-1]),
@@ -1043,10 +1042,10 @@ def update_abundances(abundance_replacements):
         else:
             raise RuntimeError(f"Unrecognized element {key} provided to abundance_dict. Only elements up through Zn supported.")
 
-    return abundances    
+    return abundances
+
 
 # Taken from Cloudy documentation.
-
 solar_abundance = {
     'H' : 1.00e+00, 'He': 1.00e-01, 'Li': 2.04e-09,
     'Be': 2.63e-11, 'B' : 6.17e-10, 'C' : 2.45e-04,
